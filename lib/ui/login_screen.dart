@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await UtilsSharedPreferences.setBoolPref(
             UtilsSharedPreferences.SP_IS_LOGIN, true);
         await UtilsSharedPreferences.setIntPref(
-            UtilsSharedPreferences.SP_USER_ID, authResponse.id);
+            UtilsSharedPreferences.SP_USER_ID, authResponse?.id);
         Navigator.pop(context);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => HomeScreen(authResponse)));

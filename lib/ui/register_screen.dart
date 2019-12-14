@@ -261,8 +261,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         AuthResponse registerResponse = response;
         await UtilsSharedPreferences.setIntPref(
             UtilsSharedPreferences.SP_USER_ID, registerResponse.id);
-        _showSnackBar('Register Suceeded with id = ${registerResponse.id}');
-        Navigator.pushReplacementNamed(context, 'login');
+        _showSnackBar('Register Suceeded with id = ${registerResponse?.id}');
+        Navigator.pushReplacementNamed(context, '/login');
       } else {
         print('ERROR: ${response}');
         _dialogs.errorDialog(context, '${response}');

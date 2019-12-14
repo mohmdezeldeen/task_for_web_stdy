@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (response != null && !response.toString().contains('Error')) {
         print("Logout Suceeded");
         AuthResponse registerResponse = response;
-        _showSnackBar('Register Suceeded with id = ${registerResponse.id}');
+        _showSnackBar('Register Suceeded with id = ${registerResponse?.id}');
         Navigator.pushReplacementNamed(context, "/welcome");
       } else {
         print('ERROR: ${response}');

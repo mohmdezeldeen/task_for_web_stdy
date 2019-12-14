@@ -17,6 +17,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
+  final _passKey = GlobalKey<FormFieldState>();
+
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
@@ -101,15 +103,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   TextFormField _buildPasswordTextField() {
     return TextFormField(
+      key: _passKey,
       controller: _passwordController,
       onSaved: (password) {
         _passwordController.text = password;
       },
-      validator: (password) {
-        if (password.isEmpty) {
-          return 'Required Field';
-        }
-      },
+      validator: _validatePassword,
       maxLines: 1,
       obscureText: _isObscurePass,
       decoration: InputDecoration(
@@ -141,11 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onSaved: (password) {
         _passwordConfirmController.text = password;
       },
-      validator: (password) {
-        if (password.isEmpty) {
-          return 'Required Field';
-        }
-      },
+      validator: _validatePasswordMatching,
       maxLines: 1,
       obscureText: _isObscurePassConfirm,
       decoration: InputDecoration(
@@ -169,6 +164,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
               })),
     );
+  }
+
+  String _validatePassword(String value) {
+    if (value.length == 0) {
+      return "Password is Required";
+    } else if (value.length < 6) {
+      return "Password Should be more than 6.";
+    }
+    return null;
+  }
+
+
+  String _validatePasswordMatching(String value) {
+    var password = _passKey.currentState.value;
+
+    if (value.length == 0) {
+      return "Password is Required";
+    } else if (value != password) {
+      return 'Password is not matching';
+    }
+    return null;
   }
 
   Row _buildRegisterExitButtons(BuildContext context) {
